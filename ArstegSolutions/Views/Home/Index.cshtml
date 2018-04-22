@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ArstegSolutions.Models.TaxSlab>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Salary Slab List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Percentage)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Percentage)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SlabId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SlabId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SlabId })
+            </td>
+        </tr>
+    }
+</table>
+@Html.ActionLink("Calculate Net Salary", "Index", "CalculateNetSalary", new { area = "" }, new { @class = "btn btn-success" })
+

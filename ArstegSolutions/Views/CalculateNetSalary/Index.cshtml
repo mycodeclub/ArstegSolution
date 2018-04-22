@@ -1,0 +1,90 @@
+﻿@model ArstegSolutions.Models.EmployeeSalary
+
+@{var tasSlabs = @ViewBag.TaxSlabs;
+}
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            Min Amount
+        </th>
+        <th>
+            Max Amount
+        </th>
+        <th>
+            Percentage
+        </th>
+    </tr>
+    @foreach (var item in ViewData["TaxSlabs"] as IList<ArstegSolutions.Models.TaxSlab>)
+    {
+        <tr>
+            <td>
+                @item.StartAmount
+            </td>
+            <td>
+                @item.EndAmount
+            </td>
+            <td>
+                @item.Percentage
+            </td>
+        </tr>
+    }
+</table>
+
+
+@*@using (Html.BeginForm("NetSalary", "CalculateNetSalary", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.GrossSalary)
+            <div class="form-group">
+                @Html.LabelFor(model => model.GrossSalary, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.GrossSalary, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GrossSalary, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Calculate" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }*@
+
+
+
+<div class="well">
+    <div class="form-horizontal">
+        <form action="/CalculateNetSalary/NetSalary" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class=" col-md-2">
+                    <div class="control-label pull-left "><b>Gross Salary</b>  </div>
+                    <input type="text" name="GrossSalary" class="form-control" />    <input type="submit" value="Submit">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (Model != null && Model.GrossSalary > 0)
+{
+    <table class="table">
+        <tr>
+            <th><b>GrossSalary</b></th>
+            <td>@Model.GrossSalary</td>
+        </tr>
+        <tr>
+            <th><b>TaxDeductionAmount</b></th>
+            <td>@Model.TaxDeductionAmount</td>
+        </tr>
+        <tr>
+            <th><b>InHandSalary</b></th>
+            <td>@Model.InHandSalary</td>
+        </tr>
+    </table>
+}
